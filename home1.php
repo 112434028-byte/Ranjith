@@ -1,0 +1,116 @@
+<?php
+// home.php
+
+session_start();
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.html");
+    exit();
+}
+
+$userName = htmlspecialchars($_SESSION["user_name"]);
+$userEmail = htmlspecialchars($_SESSION["user_email"]);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">FITZONE</div>
+
+    <div class="nav-links">
+        <a href="home.php">Home</a>
+        <a href="membership.html">Membership</a>
+        <a href="diet.html">Diet</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+</nav>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>BUILD YOUR<br>STRONGER SELF.</h1>
+
+        <p>
+            Welcome, <?php echo $userName; ?>!
+        </p>
+
+        <p>
+            <?php echo $userEmail; ?>
+        </p>
+
+        <a href="membership.html" class="btn">JOIN NOW</a>
+
+        <a href="diet.html" class="btn">GET DIET PLAN</a>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="feature-card">
+        <h2>Fitness</h2>
+        <p>Workout programs designed to improve strength and fitness.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>Nutrition</h2>
+        <p>Get diet recommendations based on your fitness goals.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>Progress</h2>
+        <p>Track your fitness journey and work towards your goals.</p>
+    </div>
+
+</section>
+
+<section class="stats">
+
+    <div>
+        <h2>500+</h2>
+        <p>Members</p>
+    </div>
+
+    <div>
+        <h2>20+</h2>
+        <p>Trainers</p>
+    </div>
+
+    <div>
+        <h2>10+</h2>
+        <p>Programs</p>
+    </div>
+
+    <div>
+        <h2>5★</h2>
+        <p>Rating</p>
+    </div>
+
+</section>
+
+<section class="cta">
+
+    <h2>READY TO GET STRONGER?</h2>
+
+    <p>Start your FitZone journey today.</p>
+
+    <a href="membership.html" class="btn">GET STARTED</a>
+
+</section>
+
+</body>
+</html>

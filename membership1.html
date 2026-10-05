@@ -1,0 +1,199 @@
+<!-- membership.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Membership</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">FITZONE</div>
+
+    <div class="nav-links">
+        <a href="home.php">Home</a>
+        <a href="membership.html">Membership</a>
+        <a href="diet.html">Diet</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+</nav>
+
+<section class="membership-section">
+
+    <h1>Choose Your Membership</h1>
+
+    <div class="membership-cards">
+
+        <div class="membership-card">
+            <h2>Basic</h2>
+            <h3>₹999/month</h3>
+            <p>Gym access</p>
+            <p>Basic workout plan</p>
+            <p>Basic support</p>
+            <button class="btn select-plan"
+                    data-plan="Basic"
+                    data-price="999">
+                Select Plan
+            </button>
+        </div>
+
+        <div class="membership-card">
+            <h2>Premium</h2>
+            <h3>₹1,999/month</h3>
+            <p>Gym access</p>
+            <p>Advanced workout plan</p>
+            <p>Nutrition guidance</p>
+            <button class="btn select-plan"
+                    data-plan="Premium"
+                    data-price="1999">
+                Select Plan
+            </button>
+        </div>
+
+        <div class="membership-card">
+            <h2>Elite</h2>
+            <h3>₹2,999/month</h3>
+            <p>Full gym access</p>
+            <p>Personal training</p>
+            <p>Advanced nutrition</p>
+            <button class="btn select-plan"
+                    data-plan="Elite"
+                    data-price="2999">
+                Select Plan
+            </button>
+        </div>
+
+    </div>
+
+    <div class="form-container" id="membershipFormContainer">
+
+        <h2>Membership Details</h2>
+
+        <form action="membership.php" method="POST" id="membershipForm">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" id="fullName">
+                <small id="nameError"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" id="email">
+                <small id="emailError"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" id="phone" maxlength="10">
+                <small id="phoneError"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Selected Plan</label>
+                <input type="text" name="plan" id="selectedPlan" readonly>
+            </div>
+
+            <input type="hidden" name="price" id="selectedPrice">
+
+            <button type="submit" class="btn">
+                Confirm Membership
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<script>
+
+const buttons = document.querySelectorAll(".select-plan");
+
+const formContainer =
+    document.getElementById("membershipFormContainer");
+
+const selectedPlan =
+    document.getElementById("selectedPlan");
+
+const selectedPrice =
+    document.getElementById("selectedPrice");
+
+buttons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        selectedPlan.value = button.dataset.plan;
+        selectedPrice.value = button.dataset.price;
+
+        formContainer.style.display = "block";
+
+        formContainer.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+
+});
+
+document.getElementById("membershipForm").addEventListener("submit", function(e) {
+
+    let valid = true;
+
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("phoneError").textContent = "";
+
+    const name =
+        document.getElementById("fullName").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const phonePattern =
+        /^[6-9][0-9]{9}$/;
+
+    if (!/^[A-Za-z ]{2,60}$/.test(name)) {
+        document.getElementById("nameError").textContent =
+            "Enter a valid name.";
+        valid = false;
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").textContent =
+            "Enter a valid email.";
+        valid = false;
+    }
+
+    if (!phonePattern.test(phone)) {
+        document.getElementById("phoneError").textContent =
+            "Enter a valid 10-digit mobile number.";
+        valid = false;
+    }
+
+    if (!selectedPlan.value) {
+        alert("Please select a membership plan.");
+        valid = false;
+    }
+
+    if (!valid) {
+        e.preventDefault();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
